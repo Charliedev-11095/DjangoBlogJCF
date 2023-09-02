@@ -3,6 +3,7 @@ from .models import Post
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseNotFound
 
 @login_required
 def post_list(request):
@@ -42,3 +43,6 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+def custom_404_view(request, exception):
+    return render(request, 'blog/404.html', status=404)
